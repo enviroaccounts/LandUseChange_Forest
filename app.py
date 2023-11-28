@@ -23,6 +23,8 @@ def create_forest_land_use_pie_chart(labels, values):
         marker=dict(colors=sector_colors, line=dict(color='#ffffff', width=2)), 
         textinfo='label+percent',
         textposition='outside', 
+        hoverinfo='percent',  
+        hovertemplate='<br>Total: %{value} ha<extra></extra>',
         texttemplate='%{label}: %{percent:.0%}',
         outsidetextfont=dict(color=sector_colors),  
         automargin=True
@@ -34,11 +36,12 @@ def create_forest_land_use_pie_chart(labels, values):
     fig.update_layout(
         title={
             'text': "Land uses converted from forestland since 1990",
-            'y': 0.1,  # Adjust the vertical position
+            'y': 0.08,  # Adjust the vertical position
             'x': 0.5,  # Center the title horizontally
             'xanchor': 'center',
             'yanchor': 'bottom'
         },
+         showlegend=False  # Hides the legend
         
     )
 
