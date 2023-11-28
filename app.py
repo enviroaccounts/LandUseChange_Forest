@@ -15,7 +15,23 @@ def prepare_forest_land_use_chart_data(data_df):
 
 def create_forest_land_use_pie_chart(labels, values):
     """Creates a pie chart for forest land use data."""
-    return go.Figure(data=[go.Pie(labels=labels, values=values)])
+    sector_colors = ['#ff7f0e', '#2ca02c', '#1f77b4', '#d62728', '#9467bd', '#8c564b']
+
+    pie_chart = go.Pie(
+        labels=labels, 
+        values=values, 
+        marker=dict(colors=sector_colors, line=dict(color='#ffffff', width=2)), 
+        textinfo='label+percent',
+        textposition='outside', 
+        texttemplate='%{label}: %{percent:.0%}',
+        outsidetextfont=dict(color=sector_colors),  
+        automargin=True
+    )
+
+    fig = go.Figure(data=[pie_chart])
+    return fig
+
+
 
 def setup_dash_layout(app, fig_pie_chart):
     """Sets up the layout of the Dash app."""
