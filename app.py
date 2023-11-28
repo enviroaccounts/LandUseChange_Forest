@@ -15,7 +15,20 @@ def prepare_forest_land_use_chart_data(data_df):
 
 def create_forest_land_use_pie_chart(labels, values):
     """Creates a pie chart for forest land use data."""
-    return go.Figure(data=[go.Pie(labels=labels, values=values)])
+    pie_chart = go.Pie(
+        labels=labels, 
+        values=values, 
+        textinfo='percent',
+        insidetextorientation='auto',  # Automatically position text inside or outside
+        texttemplate='%{percent:.0%}',  # Format the percent without decimals
+        hoverinfo='label+percent',  # Specify hover information as label and percent
+        hovertemplate='<b>%{label}</b><br>%{percent:.0%}<br>Total: %{value}<extra></extra>'  # Custom hover information format without decimals
+    )
+
+    fig = go.Figure(data=[pie_chart])
+
+    return fig
+
 
 def setup_dash_layout(app, fig_pie_chart):
     """Sets up the layout of the Dash app."""
