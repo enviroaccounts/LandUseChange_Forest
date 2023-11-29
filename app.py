@@ -22,10 +22,21 @@ def create_forest_land_use_pie_chart(labels, values):
         insidetextorientation='auto',  # Automatically position text inside or outside
         texttemplate='%{percent:.0%}',  # Format the percent without decimals
         hoverinfo='label+percent',  # Specify hover information as label and percent
-        hovertemplate='<b>%{label}</b><br>%{percent:.0%}<br>Total: %{value}<extra></extra>'  # Custom hover information format without decimals
+        hovertemplate='<b>%{label}</b><br>%{percent:.0%}<br>Total: %{value} ha<extra></extra>'  # Custom hover information format without decimals
     )
 
     fig = go.Figure(data=[pie_chart])
+    
+    # Add a title at the bottom
+    fig.update_layout(
+        title={
+            'text': "Land uses converted from forestland since 1990",
+            'y': 0.08,  # Adjust the vertical position
+            'x': 0.5,  # Center the title horizontally
+            'xanchor': 'center',
+            'yanchor': 'bottom'
+        })
+
 
     return fig
 
@@ -35,9 +46,6 @@ def setup_dash_layout(app, fig_pie_chart):
     app.layout = html.Div(children=[
         html.Div([
             dcc.Graph(id='forest-land-use-pie-chart', figure=fig_pie_chart)
-        ]),
-        html.Div([  
-            html.H3(id='forest-land-use-pie-chart-description',children='Land uses converted from forestland since 1990.')
         ])
     ],id='forest-land-use-pie-chart-layout')
 
