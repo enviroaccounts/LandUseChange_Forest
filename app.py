@@ -18,7 +18,7 @@ def create_forest_land_use_pie_chart(labels, values):
     """Creates a pie chart for forest land use data."""
     colors = {
         'Production grassland': '#1AA881',       #green
-        'Built-up area': '#2e2e2e',          
+        'Built-up area': '#D186B0',              #pink
         'Wetland': '#1A80BA',                    # Dark blue
         'Cropland': '#F2E755',                   # Yellow
         'Grassland with woody biomass': '#DD7E33'  # Orange
