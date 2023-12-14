@@ -31,25 +31,43 @@ def create_forest_land_use_pie_chart(labels, values):
         labels=labels, 
         values=values, 
         textinfo='percent',
+        textposition='outside',
         insidetextorientation='auto',
         texttemplate='%{percent:.0%}',
         hoverinfo='label+percent',
         hovertemplate='<b>%{label}</b><br>%{percent:.0%}<br>Total: %{value} ha<extra></extra>',
-        hole=.6, 
-        marker=dict(colors=pie_colors)  # Apply custom colors
+        hole=.6,
+        marker=dict(colors=pie_colors),  # Apply custom colors
+        showlegend=False
     )
 
     fig = go.Figure(data=[pie_chart])
     
+    # Add scatter plot traces to mimic circular legend markers
+    for label, color in zip(labels, pie_colors):
+        fig.add_trace(go.Scatter(
+            x=[None],  # No actual data points
+            y=[None],
+            mode='markers',
+            marker=dict(color=color, size=10),
+            name=label
+        ))
+
+    # Update the layout to remove the background and add a light gray background
     fig.update_layout(
-        title={
-            'text': "Land uses converted from forestland since 1990",
-            'y': 0.08,
-            'x': 0.5,
-            'xanchor': 'center',
-            'yanchor': 'bottom'
-        }
+        legend=dict(
+            orientation="h",
+            x=0.15,
+            y=-0.3,
+            xanchor="left",
+            yanchor="bottom"
+        ),
+        plot_bgcolor='rgba(0,0,0,0)',  # Making the plot background transparent
+        paper_bgcolor='#f0f0f0',  # Light gray background for the entire graph
+        xaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
+        yaxis=dict(showgrid=False, zeroline=False, showticklabels=False)
     )
+
 
     return fig
 
@@ -63,16 +81,6 @@ def setup_dash_layout(app, fig_pie_chart):
     ],id='forest-land-use-pie-chart-layout')
 
 def create_app():
-
-    # external_scripts = [
-    #     {'src': 'https://cdn.tailwindcss.com'}
-    # ]
-      
-    # app = Dash(__name__, 
-    #         external_scripts=external_scripts
-    #         )
-
-    
     """Creates and configures the Dash app."""
     app = Dash(__name__)
 
